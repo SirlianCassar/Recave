@@ -1,3 +1,4 @@
+// ⚠️ même import et struct que ton fichier original
 import SwiftUI
 
 struct VueReapprovisionnement: View {
@@ -64,15 +65,15 @@ struct VueReapprovisionnement: View {
                                             HStack {
                                                 VStack(alignment: .leading, spacing: 2) {
                                                     Text(produit.nom)
-                                                        .font(.system(size: 11)) // réduit
+                                                        .font(.system(size: 11))
                                                         .fontWeight(.medium)
                                                     Text("Qté: \(produit.quantite)")
-                                                        .font(.system(size: 9)) // encore plus petit
+                                                        .font(.system(size: 9))
                                                         .foregroundColor(.secondary)
                                                 }
                                                 Spacer()
                                             }
-                                            .padding(12) // plus large
+                                            .padding(12)
                                             .background(produitSelectionne?.id == produit.id ? Color.blue.opacity(0.2) :  Color(.systemBackground))
                                             .cornerRadius(8)
                                         }
@@ -85,7 +86,7 @@ struct VueReapprovisionnement: View {
                                     Spacer()
                                     Button(action: {
                                         session.produits.removeAll()
-                                        produitSelectionne = nil // <- important pour vider la sélection
+                                        produitSelectionne = nil
                                         gestionnaire.mettreAJourSession(session)
                                     }) {
                                         Image(systemName: "trash.fill")
@@ -117,6 +118,8 @@ struct VueReapprovisionnement: View {
                                 ) {
                                     if let categorie = categorieActuelle {
                                         ForEach(categorie.articles, id: \.self) { produit in
+                                            let couleurHex = gestionnaire.couleurPourArticle(produit)
+
                                             Button(action: {
                                                 ajouterProduit(produit)
                                             }) {
@@ -140,8 +143,8 @@ struct VueReapprovisionnement: View {
                                                 .frame(height: panneauGaucheVisible ? 90 : 75)
                                                 .frame(maxWidth: .infinity)
                                                 .padding(6)
-                                                .background(Color.blue)
-                                                .foregroundColor(.white)
+                                                .background(Color(hex: couleurHex))
+                                                .foregroundColor(Color(hex: couleurHex).readableTextColor())
                                                 .cornerRadius(8)
                                             }
                                         }
@@ -205,7 +208,6 @@ struct VueReapprovisionnement: View {
                         .background(Color(.tertiarySystemBackground))
                     }
 
-                    // MARK: - Encoche
                     if !panneauGaucheVisible {
                         RoundedRectangle(cornerRadius: 4)
                             .fill(Color.gray.opacity(0.5))

@@ -13,18 +13,17 @@ struct MenuPrincipalView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 30) {
-                
+
                 // MARK: - Logo et titre
                 VStack(spacing: 8) {
                     Group {
                         if estEasterEggActif {
                             Text("🤮")
+                                .font(.system(size: 80))
                         } else {
-                            Image(systemName: "wineglass")
-                                .foregroundColor(.blue)
+                            LogoAdaptatif()
                         }
                     }
-                    .font(.system(size: 80))
                     .onTapGesture {
                         tapCount += 1
                         if estEasterEggActif {
@@ -36,7 +35,7 @@ struct MenuPrincipalView: View {
                         }
                     }
 
-                    Text(estEasterEggActif ? "Brieg" : "Recave")
+                    Text(estEasterEggActif ? "Brieg Pétasse" : "Recave")
                         .font(.largeTitle)
                         .fontWeight(.bold)
 
@@ -78,7 +77,7 @@ struct MenuPrincipalView: View {
                 Spacer()
 
                 // MARK: - Footer
-                Text("fait par Siri avec 💚")
+                Text("Fait par Siri avec 💚")
                     .font(.footnote)
                     .foregroundColor(.secondary)
                     .padding(.bottom, 16)
@@ -89,7 +88,7 @@ struct MenuPrincipalView: View {
                 Button("Rouvrir") {
                     navigerVersReapprovisionnement = true
                 }
-                Button("Nouvelle", role: .destructive) {
+                Button("Nouvelle Recave", role: .destructive) {
                     sessionExistante = gestionnaire.creerNouvelleSession()
                     navigerVersReapprovisionnement = true
                 }

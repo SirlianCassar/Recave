@@ -2,10 +2,13 @@
 
 import SwiftUI
 
+
+
 /// Vue de modification (ou consultation) d'une catégorie
 struct VueEditionCategorie: View {
     @EnvironmentObject var gestionnaire: GestionnaireReapprovisionnement
     @Binding var categorie: CategoriePersonnalisee
+    @Environment(\.dismiss) var dismiss
     let estParDefaut: Bool
 
     @State private var nomCategorie: String
@@ -72,6 +75,7 @@ struct VueEditionCategorie: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("OK") {
                         sauvegarder()
+                        dismiss() // ferme la vue
                     }
                 }
             }
